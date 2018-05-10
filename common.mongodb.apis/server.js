@@ -22,7 +22,7 @@ app.use(cors(corsOptions));
 // API location
 app.use('/mongodb', mongodb);
 
-//Set Port
+//Setting Port
 const port = process.env.PORT || '3000';
 app.set('port', port);
 
