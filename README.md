@@ -3,13 +3,11 @@ This contains a generous mongo db api structure in Node JS.
 
 Supported operations are 
 <ul>
-    <li>find</li>
-    <li>find with query</li>
-    <li>select</li>
-    <li>sorting</li>
-    <li>skip</li>
-    <li>top</li>
-    </ul>
+    <li>find (find with query, select, sorting, skip, top)</li>
+    <li>adding record to collection</li>
+    <li>editing record in collection</li>
+    <li>deleting record from collection</li>
+</ul>
 
 ## Quick Start
 ### Installation
