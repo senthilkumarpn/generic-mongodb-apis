@@ -1,5 +1,5 @@
-var Products=require('../../Models/products.model');
-var Users = require('../../Models/users.model');
+var Products=require('../../models/products.model');
+var Users = require('../../models/users.model');
 // get future models here
 
 var ModelMapping = {
