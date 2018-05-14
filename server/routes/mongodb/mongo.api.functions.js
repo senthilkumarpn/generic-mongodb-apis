@@ -28,8 +28,29 @@ var ApiFunctions = {
         delete query.sortby;
         delete query.orderby;
         delete query.select;
+        delete query.top;
+        delete query.skip;
+
         var sortby = {};
         var select= {};
+        var top=0;
+        var skip=0;
+        if(req.query.top!=undefined){
+            try{
+                top= parseInt(req.query.top);
+            }
+            catch(err){
+                top=0;
+            }
+        }
+        if(req.query.skip!=undefined){
+            try{
+                skip= parseInt(req.query.skip);
+            }
+            catch(err){
+                skip=0;
+            }
+        }
         if(req.query.select!=undefined){
             let columns= req.query.select.split(',');
             let select_string='{';
@@ -46,7 +67,7 @@ var ApiFunctions = {
             sortby[req.query.sortby]= req.query.orderby!='DESC'? 1:-1;
         }
         if(Mapping!=null){
-            Mapping.find(query, select).sort(sortby).exec(function (err, result) {
+            Mapping.find(query, select).sort(sortby).skip(skip).limit(top).exec(function (err, result) {
                 if (err){
                     callback({error: err});
                 }
