@@ -1,6 +1,16 @@
 # Generic mongodb apis in Node
 This contains a generous mongo db api structure in Node JS.
 
+Supported operations are 
+<ul>
+    <li>find</li>
+    <li>find with query</li>
+    <li>select</li>
+    <li>sorting</li>
+    <li>skip</li>
+    <li>top</li>
+    </ul>
+
 ## Quick Start
 ### Installation
 
@@ -9,8 +19,15 @@ This contains a generous mongo db api structure in Node JS.
 ### Configuration
 
 #### appSettings
+<ul>
+<li>By default, app is connecting to local mongo db. In order to connect to any cloud mongo make necessary changes.</li>
+    
+<li>In order for Ad Authentication change <i>config.Authentication</i> to <strong>true</strong>.</li>
 
-By default, app is connecting to local mongo db. In order to connect to any cloud mongo make necessary changes.
+<li>audience should be your APP ID URI in App Registration.</li>
+
+<li>Token generation steps can be found in https://blog.jongallant.com/2017/03/azure-active-directory-access-tokens-postman/ </li>
+</ul>
 
 ```javascript
 var config = {};
@@ -25,6 +42,10 @@ var config = {};
 config.MongoDb="mongodb://localhost/mydb";
 <!-- local mongo end  -->
 
+<!-- Authentication Start -->
+config.Authentication = false;
+config.audience = '';
+<!-- Authentication End -->
 
 module.exports = config;
 ```
@@ -82,5 +103,6 @@ module.exports = ModelMapping;
 http://localhost:3000/mongodb/users
 http://localhost:3000/mongodb/users?UserId=1
 http://localhost:3000/mongodb/users?sortby=UserName&order=DESC
+http://localhost:3000/mongodb/users?select=UserName,UserId
 ```
 
