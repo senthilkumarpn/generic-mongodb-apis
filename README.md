@@ -75,3 +75,12 @@ var ModelMapping = {
 
 module.exports = ModelMapping;
 ```
+
+## Sample usage
+###
+```
+http://localhost:3000/mongodb/users
+http://localhost:3000/mongodb/users?UserId=1
+http://localhost:3000/mongodb/users?sortby=UserName&order=DESC
+```
+
