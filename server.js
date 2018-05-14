@@ -4,6 +4,7 @@ const http = require('http');
 const app = express();
 const cors = require('cors');
 const mongodb = require('./server/routes/mongodb/mongo.api');
+const authentication = require('./server/ad-auth-middleware/ad.auth');
 
 // Parsers
 app.use(bodyParser.json({limit: '50mb'}));
@@ -19,6 +20,8 @@ var corsOptions = {
 }
 
 app.use(cors(corsOptions));
+//Authentication
+app.use(authentication);
 // API location
 app.use('/mongodb', mongodb);
 

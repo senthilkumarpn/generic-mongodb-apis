@@ -1,5 +1,5 @@
-var ModelMapping=require('./model.mapping');
-var appSettings = require('../../../appSettings.config');
+const ModelMapping=require('./model.mapping');
+const appSettings = require('../../../appSettings.config');
 const mongoose = require('mongoose');
 
 if(appSettings.user!=undefined){
@@ -26,14 +26,27 @@ var ApiFunctions = {
         var Mapping = ModelMapping.Mapping(CollectionName.toLowerCase());
         var query = Object.assign({},req.query);
         delete query.sortby;
-        delete query.order;
+        delete query.orderby;
+        delete query.select;
         var sortby = {};
-        if(req.query.sortby!=undefined){
-            sortby[req.query.sortby]= req.query.order!='DESC'? 1:-1;
+        var select= {};
+        if(req.query.select!=undefined){
+            let columns= req.query.select.split(',');
+            let select_string='{';
+            columns.forEach(function(item){
+                select_string= select_string+'"'+item+ '": 1,';
+            });
+            if(select_string.length>1){
+                select_string= select_string.slice(0,-1);
+            }
+            select_string= select_string +'}';
+            select = JSON.parse(select_string.toString());
         }
-
+        if(req.query.sortby!=undefined){
+            sortby[req.query.sortby]= req.query.orderby!='DESC'? 1:-1;
+        }
         if(Mapping!=null){
-            Mapping.find(query).sort(sortby).exec(function (err, result) {
+            Mapping.find(query, select).sort(sortby).exec(function (err, result) {
                 if (err){
                     callback({error: err});
                 }
