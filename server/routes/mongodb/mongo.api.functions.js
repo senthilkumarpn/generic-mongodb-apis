@@ -3,19 +3,19 @@ const appSettings = require('../../../appSettings.config');
 const mongoose = require('mongoose');
 
 if(appSettings.user!=undefined){
-    mongoose.connect(appSettings.MongoDb, {
+    mongoose.connect(appSettings.mongodb, {
         auth: {
-          user: appSettings.user,
-          password: appSettings.password
+          user: appSettings.mongodb_user,
+          password: appSettings.mongodb_password
         }
       })
-      .then(() => console.log('Connected to azure mongodb'))
-      .catch((err) => console.error('MongoDb Connection Error\n'+err));    
+      .then(() => console.log('connected to azure mongodb'))
+      .catch((err) => console.error('mongodb connection Error\n'+err));    
 }
 else{
-    mongoose.connect(appSettings.MongoDb)
-      .then(() => console.log('Connected to local mongodb'))
-      .catch((err) => console.error('MongoDb Connection Error\n'+err));    
+    mongoose.connect(appSettings.mongodb)
+      .then(() => console.log('connected to local mongodb'))
+      .catch((err) => console.error('mongodb connection Error\n'+err));    
 }
 
 var ApiFunctions = {
@@ -23,7 +23,7 @@ var ApiFunctions = {
     //Gets collection data based on query from mongodb
     GET_CALL: function (req, res, callback) {
         var CollectionName= req.params.CollectionName;
-        var Mapping = ModelMapping.Mapping(CollectionName.toLowerCase());
+        var Mapping = ModelMapping.Mapping(CollectionName);
         var query = Object.assign({},req.query);
         delete query.sortby;
         delete query.orderby;
@@ -85,7 +85,7 @@ var ApiFunctions = {
     //Add new collection data to mongodb
     POST_CALL: function (req, res, callback) {
         var CollectionName= req.params.CollectionName;
-        var Mapping = ModelMapping.Mapping(CollectionName.toLowerCase());
+        var Mapping = ModelMapping.Mapping(CollectionName);
         var MongoObj= req.body;
         var bulkinsert=false;
         if(Object.prototype.toString.call(MongoObj)=="[object Array]"){
@@ -152,7 +152,7 @@ var ApiFunctions = {
     //Updates collection data based on query to mongodb
     PUT_CALL: function (req, res, callback) {
         var CollectionName= req.params.CollectionName;
-        var Mapping = ModelMapping.Mapping(CollectionName.toLowerCase());
+        var Mapping = ModelMapping.Mapping(CollectionName);
         var MongoObj= req.body;
 
         if(Mapping==null){
@@ -175,7 +175,7 @@ var ApiFunctions = {
     //Delete collection data based on query from mongodb
     DELETE_CALL: function (req, res, callback) {
         var CollectionName= req.params.CollectionName;
-        var Mapping = ModelMapping.Mapping(CollectionName.toLowerCase());
+        var Mapping = ModelMapping.Mapping(CollectionName);
 
         if(Mapping==null){
             callback({error: 'Mongo Collection Not Found/Not Mapped'});

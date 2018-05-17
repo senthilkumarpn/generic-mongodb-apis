@@ -20,9 +20,9 @@ Supported operations are
 <ul>
 <li>By default, app is connecting to local mongo db. In order to connect to any cloud mongo make necessary changes.</li>
     
-<li>In order for Ad Authentication change <i>config.Authentication</i> to <strong>true</strong>.</li>
+<li>In order for Ad Authentication change <i>config.mongodb_authentication</i> to <strong>true</strong>.</li>
 
-<li>audience should be your APP ID URI in App Registration.</li>
+<li>mongodb_audience should be your APP ID URI in App Registration.</li>
 
 <li>Token generation steps can be found in https://blog.jongallant.com/2017/03/azure-active-directory-access-tokens-postman/ </li>
 </ul>
@@ -31,19 +31,21 @@ Supported operations are
 var config = {};
 
 <!-- cloud mongo start  -->
-<!-- config.MongoDb=''; -->
-<!-- config.user=''; -->
-<!-- config.password=''; -->
+<!-- config.mongodb=''; -->
+<!-- config.mongodb_user=''; -->
+<!-- config.mongodb_password=''; -->
 <!-- cloud mongo end  -->
 
 <!-- local mongo start  -->
-config.MongoDb="mongodb://localhost/mydb";
+config.mongodb="mongodb://localhost/mydb";
 <!-- local mongo end  -->
 
-<!-- Authentication Start -->
-config.Authentication = false;
-config.audience = '';
-<!-- Authentication End -->
+<!-- mongodb api authentication start -->
+config.mongodb_authentication = false;
+<!-- this is the zzure app id url of registered app-->
+config.mongodb_audience = '';
+<!-- mongodb api authentication end -->
+
 
 module.exports = config;
 ```

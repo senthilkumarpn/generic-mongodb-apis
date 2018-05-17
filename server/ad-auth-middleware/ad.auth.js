@@ -2,11 +2,11 @@ const aad = require('azure-ad-jwt');
 const appSettings = require('../../appSettings.config');
 
 module.exports = function(req, res, next) {
-  if(appSettings.Authentication==false){
+  if(appSettings.mongodb_authentication==false){
     next();
   }
   else{
-    var audience = appSettings.audience;
+    var audience = appSettings.mongodb_audience;
     var authorization = req.headers['authorization']
     if (authorization) {
       var bearer = authorization.split(" ");
