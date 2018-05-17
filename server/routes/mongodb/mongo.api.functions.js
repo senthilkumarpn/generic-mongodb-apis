@@ -2,7 +2,7 @@ const ModelMapping=require('./model.mapping');
 const appSettings = require('../../../appSettings.config');
 const mongoose = require('mongoose');
 
-if(appSettings.user!=undefined){
+if(appSettings.mongodb_user!=undefined){
     mongoose.connect(appSettings.mongodb, {
         auth: {
           user: appSettings.mongodb_user,
